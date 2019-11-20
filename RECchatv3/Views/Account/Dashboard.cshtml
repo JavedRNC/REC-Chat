@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<style>
+    @@media only screen and (max-width:991px) {
+        .myclass {
+            width: 60%;
+            height: 60%;
+            margin-left: 20%;
+            margin-top: 5%;
+        }
+    }
+
+
+    .myclass {
+        width: 60%;
+        height: 60%;
+        margin-left: 20%;
+        margin-top: 20%;
+    }
+
+    .chatroom {
+        width: 60%;
+        height: 100px;
+        margin-bottom: 50px;
+    }
+</style>
+<p class="text-center mt-2 ">Welcome To REC-Chat (A project by Javed Ansari)</p>
+
+<center>
+    <div class="chatroom">
+        <div class="jumbotron "><h3 class="font-weight-bolder">Chat Rooms Available</h3></div>
+    </div>
+</center>
+
+<div class=" d-flex flex-column text-center mt-lg-5 justify-content-around myclass">
+    <button class="btn btn-block btn-dark text-center" onclick="location.href='@Url.Action("Chat")'"> Information Technology </button>
+    <button class="btn btn-block btn-dark text-center"> Mechanical Engineering </button>
+    <button class="btn btn-block btn-dark text-center"> Civil Engineering </button>
+    <button class="btn btn-block btn-dark text-center"> Electrical Engineering </button>
+    <button class="btn btn-block btn-dark text-center"> Electronics Engineering </button>
+    <button class="btn btn-block btn-dark text-center"> Computer Science Engineering </button>
+    <button class="btn btn-block btn-dark text-center"> Others Engineering </button>
+</div>
+
+<center class="mt-5 mb-2">
+    <button class="btn btn-danger " onclick="location.href='@Url.Action("Logout")'">Log Out</button>
+</center>
+

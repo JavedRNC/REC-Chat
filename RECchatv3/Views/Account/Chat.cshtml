@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+<style>
+    li
+    {
+        margin:2px 2px 2px 2px;
+        color:forestgreen;
+        
+    }
+
+    ul{
+        list-style-type:none;
+    }
+
+    body
+    {
+        background-color:orange;
+    }
+</style>
+
+<center class="mt-2"> <marquee> <blink>Chat Window: Dont refersh pls otherwise you will lost all your messages</blink></marquee>
+
+<div style="height:500px; overflow-y:scroll;background-color:darkorange;" id="div1">
+
+    <ul id="discussion"></ul></div>
+    <div style="margin-top:2%" >
+        <input type="text" id="message" class="form-control"  placeholder="Enter your Message here" />
+       
+        <input type="button" id="sendmessage" value="Send chat" class="btn btn-success mt-2"/>
+        <input type="hidden" id="displayname" value="@WebSecurity.CurrentUserName" />
+    </div>
+ </center>
+<script>
+    $('#div1').scrollTop($('#div1')[0].scrollHeight);
+</script>
+
+
+@section scripts {
+
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function()
+        {
+            var chat = $.connection.chatHub;
+            chat.client.addNewMessageToPage = function (name, message) {
+                $("#discussion").append('<li><strong style="color:yellow">' + htmlEncode(name) + '</strong> <a style="color:white">:' + htmlEncode(message) + '</li>');
+                $('#div1').scrollTop($('#div1')[0].scrollHeight);
+
+            };
+           
+         
+                $("#message").focus();
+            $.connection.hub.start().done(function () {
+                $('#sendmessage').click(function () {
+                    chat.server.send($("#displayname").val(),$('#message').val());
+                    $('#message').val("").focus();
+
+                });
+            });
+        });
+        function htmlEncode(value) {
+            var encodedvalue = $('<div/>').text(value).html();
+            return encodedvalue;
+        }
+
+    </script>
+}
